@@ -59,7 +59,7 @@ public class Interaction : MonoBehaviour
                 var posRTip = body.Joints[TrackedRightTip].Position;
                //  if (posRH.X < posRight.X )
                   {
-                      gameObject.transform.position = new Vector3(posRH.X, posRH.Y);
+                      gameObject.transform.position = new Vector3((posRH.X * 10f) + 510, (posRH.Y * 20f) + 960);
 
                   }/*
                 //  else
