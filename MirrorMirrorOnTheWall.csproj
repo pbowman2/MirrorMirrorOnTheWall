@@ -91,6 +91,7 @@
     <Compile Include="Assets\KinectView\Scripts\InfraredSourceManager.cs" />
     <Compile Include="Assets\KinectView\Scripts\InfraredSourceView.cs" />
     <Compile Include="Assets\KinectView\Scripts\MultiSourceManager.cs" />
+    <Compile Include="Assets\KinectView\Scripts\Timer.cs" />
     <Compile Include="Assets\Test2\ColorSourceManager.cs" />
     <Compile Include="Assets\Test2\ColorSourceView.cs" />
     <Compile Include="Assets\Test2\Interaction.cs" />
