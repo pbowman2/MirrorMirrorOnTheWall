@@ -6,8 +6,9 @@ using Windows.Kinect;
 
 public class Interaction : MonoBehaviour
 {
-
     public GameObject BodySrcManager;
+    private GameObject handCursor; // on screen hand Cursor
+   // public GameObject elbow;
     public JointType TrackedRight;
     public JointType TrackedRightHand;
     public JointType TrackedRightThumb;
@@ -30,6 +31,8 @@ public class Interaction : MonoBehaviour
         {
             bodyManager = BodySrcManager.GetComponent<BodySourceManager>();
         }
+
+        handCursor = GameObject.Find("Cursor");
 
     }
 
@@ -56,17 +59,18 @@ public class Interaction : MonoBehaviour
 
             if (body.IsTracked)
             {
-                var posRight = body.Joints[TrackedRight].Position;
+                //var posRight = body.Joints[TrackedRight].Position;
                 var posRH = body.Joints[TrackedRightHand].Position;
-                var posRT = body.Joints[TrackedRightThumb].Position;
-                var posRTip = body.Joints[TrackedRightTip].Position;
+               // var posRT = body.Joints[TrackedRightThumb].Position;
+               // var posRTip = body.Joints[TrackedRightTip].Position;
                 var posRElbow = body.Joints[TrackedRightElbow].Position;
-
-                if (posRH.Y > posRElbow.Y) //hand is right hand is open
+                
+                // move hand cursor on screen
+                if ((posRH.Y > posRElbow.Y) 
+                    && body.HandRightState == HandState.Open)
                 {
-                    Debug.Log("I see you " + posRH.Y + " " + posRElbow.Y);
-                    gameObject.transform.position =
-                        new Vector3((posRH.X * 1800f) + 510, (posRH.Y * 2500f) + 540);
+                    handCursor.transform.position =
+                        new Vector3((posRH.X * 200f)-10, (posRH.Y * 200f)-75);
                     //gameObject.transform.position =
                     //new Vector3(0, 0);
                     // Draw Hand Cursor
@@ -75,8 +79,10 @@ public class Interaction : MonoBehaviour
                 else
                 {
                     gameObject.transform.position =
-                      new Vector3(1100, 0);
+                      new Vector3(30, -55);
                 }
+
+               // elbow.transform.position = new Vector3(posRElbow.X, posRElbow.Y,posRElbow.Z);
                 /*
                 //  else
                   {
@@ -101,7 +107,7 @@ public class Interaction : MonoBehaviour
             else
             {
                 gameObject.transform.position =
-                     new Vector3(1100, 0);
+                     new Vector3(30,-55);
             }
         }
 
