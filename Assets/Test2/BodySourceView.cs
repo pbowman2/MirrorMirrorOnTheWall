@@ -99,11 +99,15 @@ public class BodySourceView : MonoBehaviour
             {
                 if(!_Bodies.ContainsKey(body.TrackingId))
                 {
-                    _Bodies[body.TrackingId] = CreateBodyObject(body.TrackingId);
+                    //_Bodies[body.TrackingId] = CreateBodyObject(body.TrackingId);
                 }
-                
-                RefreshBodyObject(body, _Bodies[body.TrackingId]);
+
+                //RefreshBodyObject(body, _Bodies[body.TrackingId]);
+                //Tracking for UI Component  
+                KinectInputModule.instance.TrackBody(body);
             }
+            else
+                KinectInputModule.instance.NotTrackBody();
         }
     }
     
@@ -146,9 +150,9 @@ public class BodySourceView : MonoBehaviour
             LineRenderer lr = jointObj.GetComponent<LineRenderer>();
             if(targetJoint.HasValue)
             {
-                lr.SetPosition(0, jointObj.localPosition);
-                lr.SetPosition(1, GetVector3FromJoint(targetJoint.Value));
-                lr.SetColors(GetColorForState (sourceJoint.TrackingState), GetColorForState(targetJoint.Value.TrackingState));
+                //lr.SetPosition(0, jointObj.localPosition);
+                //lr.SetPosition(1, GetVector3FromJoint(targetJoint.Value));
+                //lr.SetColors(GetColorForState (sourceJoint.TrackingState), GetColorForState(targetJoint.Value.TrackingState));
             }
             else
             {
