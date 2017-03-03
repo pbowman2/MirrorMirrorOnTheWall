@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{C563DAAE-B369-A7FD-ABED-0BF3FEA96047}</ProjectGuid>
+    <ProjectGuid>{17349486-EF72-7FF1-6950-6B72FED496FB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp-firstpass</AssemblyName>
@@ -132,6 +132,8 @@
      <Compile Include="Assets\Standard Assets\Windows\Kinect\TrackingState.cs" />
      <Compile Include="Assets\Standard Assets\Windows\Kinect\Vector4.cs" />
      <None Include="Assets\link.xml" />
+     <None Include="Assets\Materials\GreenScreenShader.shader" />
+     <None Include="Assets\Materials\Materials\GreenScreenShader.shader" />
      <None Include="Assets\license_3rdpartynotice.txt" />
      <None Include="Assets\readme_SDK.txt" />
      <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
