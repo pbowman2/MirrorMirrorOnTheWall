@@ -9,18 +9,20 @@ using Windows.Kinect;
 public abstract class AbstractKinectUICursor : MonoBehaviour {
 
     [SerializeField]
-    protected JointType _handType;
+    protected GameObject cursor;
+    //protected JointType _handType;
     protected KinectInputData _data;
     protected Image _image;
 
     public virtual void Start()
     {
+        cursor = GameObject.Find("Cursor");
         Setup();
     }
 
     protected void Setup()
     {
-        _data = KinectInputModule.instance.GetHandData(_handType);
+        _data = KinectInputModule.instance.GetHandData(JointType.HandRight);
         // Make sure we dont block raycasts
         GetComponent<CanvasGroup>().blocksRaycasts = false;
         GetComponent<CanvasGroup>().interactable = false;

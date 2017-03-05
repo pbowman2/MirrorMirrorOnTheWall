@@ -5,89 +5,6 @@ using UnityEngine;
 using Windows.Kinect;
 using System;
 
-//public class Interaction : MonoBehaviour
-//{
-//    public GameObject BodySrcManager;
-//    private GameObject handCursor; // on screen hand Cursor
-//   // public JointType TrackedRight;
-//    public JointType TrackedRightHand;
-//    //public JointType TrackedRightThumb;
-//    //public JointType TrackedRightTip;
-//    public JointType TrackedRightElbow;
-//    private BodySourceManager bodyManager;
-//    private Body[] bodies;
-
-//    // Use this for initialization
-//    void Start()
-//    {
-//        if (BodySrcManager == null)
-//        {
-//            Debug.Log("Assign Game Object with Body Source Manager");
-//        }
-//        else
-//        {
-//            bodyManager = BodySrcManager.GetComponent<BodySourceManager>();
-//        }
-
-//        handCursor = GameObject.Find("Cursor");
-
-//    }
-
-//    // Update is called once per frame
-//    void Update()
-//    {
-//        if (bodyManager == null)
-//        {
-//            return;
-//        }
-//        bodies = bodyManager.GetData();
-
-//        if (bodies == null)
-//        {
-//            return;
-//        }
-
-//        foreach (var body in bodies)
-//        {
-//            if (body == null)
-//            {
-//                continue;
-//            }
-
-//            if (body.IsTracked)
-//            {
-//                //var posRight = body.Joints[TrackedRight].Position;
-//                var posRH = body.Joints[TrackedRightHand].Position;
-//               // var posRT = body.Joints[TrackedRightThumb].Position;
-//               // var posRTip = body.Joints[TrackedRightTip].Position;
-//                var posRElbow = body.Joints[TrackedRightElbow].Position;
-                
-//                // move hand cursor on screen
-//                if ((posRH.Y > posRElbow.Y) 
-//                    && body.HandRightState == HandState.Open)
-//                {
-//                    handCursor.transform.position =
-//                        new Vector3((posRH.X * 200f)-10, (posRH.Y * 200f)-75);
-//                    //Camera.main.WorldToScreenPoint(new Vector3(posRH.X - 29, posRH.Y - 52, 0));
-//                    // Draw Hand Cursor
-
-//                }
-//                else
-//                {
-//                    gameObject.transform.position =
-//                      new Vector3(30, -55);
-//                }
-//            }
-//            else
-//            {
-//                gameObject.transform.position =
-//                     new Vector3(30,-55);
-//            }
-//        }
-
-//    }
-//}
-
 [AddComponentMenu("Kinect/Kinect Input Module")]
 [RequireComponent(typeof(EventSystem))]
 public class KinectInputModule : BaseInputModule
@@ -160,11 +77,66 @@ public class KinectInputModule : BaseInputModule
     public override void Process()
     {
         ProcessHover();
-       // ProcessPress();
-       // ProcessDrag();
-       // ProcessWaitOver();
+        ProcessPress();
+        // ProcessDrag();
+         ProcessWaitOver();
     }
 
+    /// <summary>
+    /// Processes waitint over componens, if hovererd buttons click type is waitover, process it!
+    /// </summary>
+    private void ProcessWaitOver()
+    {
+        if (!_inputData.IsHovering || _inputData.ClickGesture != KinectUIClickGesture.WaitOver)
+        {
+            _inputData.WaitOverAmount = (Time.time - _inputData.HoverTime) / _waitOverTime;
+
+            if (Time.time >= _inputData.HoverTime + _waitOverTime)
+            {
+                PointerEventData lookData = GetLookPointerEventData(_inputData.GetHandScreenPosition());
+                GameObject go = lookData.pointerCurrentRaycast.gameObject;
+                ExecuteEvents.ExecuteHierarchy(go, lookData, ExecuteEvents.submitHandler);
+                // reset time
+                _inputData.HoverTime = Time.time;
+            }
+        }
+    }
+
+    /// <summary>
+    ///  Process pressing, event click trigered on button by closing and opening hand,sends submit event to gameobject
+    /// </summary>
+    private void ProcessPress()
+    {
+        //Check if we are tracking hand state not wait over
+        if (!_inputData.IsHovering || _inputData.ClickGesture != KinectUIClickGesture.HandState)
+        {
+            // If hand state is not tracked reset properties
+            if (_inputData.CurrentHandState == HandState.NotTracked)
+            {
+                _inputData.IsPressing = false;
+                _inputData.IsDraging = false;
+            }
+            // When we close hand and we are not pressing set property as pressed
+            if (!_inputData.IsPressing && _inputData.CurrentHandState == HandState.Closed)
+            {
+                _inputData.IsPressing = true;
+            }
+            // If hand state is opened and is pressed, make click action
+            else if (_inputData.IsPressing && (_inputData.CurrentHandState == HandState.Open))
+            {
+                //_inputData[i].IsDraging = false;
+                PointerEventData lookData = GetLookPointerEventData(_inputData.GetHandScreenPosition());
+                eventSystem.SetSelectedGameObject(null);
+                if (lookData.pointerCurrentRaycast.gameObject != null && !_inputData.IsDraging)
+                {
+                    GameObject go = lookData.pointerCurrentRaycast.gameObject;
+                    ExecuteEvents.ExecuteHierarchy(go, lookData, ExecuteEvents.submitHandler);
+                    //ExecuteEvents.ExecuteHierarchy(go, lookData, ExecuteEvents.pointerUpHandler);
+                }
+                _inputData.IsPressing = false;
+            }
+        }
+}
     /// <summary>
     /// Process hovering over component, sends pointer enter exit event to gameobject
     /// </summary>
@@ -261,7 +233,11 @@ public class KinectInputData
         HandPosition = GetVector3FromJoint(body.Joints[JointType.HandRight]);
         Debug.Log("HandPostion: " + HandPosition + "\n");
         CurrentHandState = GetStateFromJointType(body, JointType.HandRight);
-        IsTracking = true;
+        // start tracking if hand is above the elbow
+        if (HandPosition.y > GetVector3FromJoint(body.Joints[JointType.SpineBase]).y)
+            IsTracking = true;
+        else
+            IsTracking = false;
     }
     // Converts hand position to screen coordinates
     public Vector3 GetHandScreenPosition()

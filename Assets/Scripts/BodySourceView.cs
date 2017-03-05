@@ -99,15 +99,15 @@ public class BodySourceView : MonoBehaviour
             {
                 if(!_Bodies.ContainsKey(body.TrackingId))
                 {
-                    //_Bodies[body.TrackingId] = CreateBodyObject(body.TrackingId);
+                    _Bodies[body.TrackingId] = CreateBodyObject(body.TrackingId);
                 }
 
-                //RefreshBodyObject(body, _Bodies[body.TrackingId]);
+                RefreshBodyObject(body, _Bodies[body.TrackingId]);
                 //Tracking for UI Component  
                 KinectInputModule.instance.TrackBody(body);
             }
-            else
-                KinectInputModule.instance.NotTrackBody();
+            //else
+                //KinectInputModule.instance.NotTrackBody();
         }
     }
     

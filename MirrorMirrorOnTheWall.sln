@@ -1,11 +1,11 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MirrorMirrorOnTheWall", "Assembly-CSharp-firstpass.csproj", "{C563DAAE-B369-A7FD-ABED-0BF3FEA96047}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MirrorMirrorOnTheWall.Plugins", "MirrorMirrorOnTheWall.Plugins.csproj", "{A30213FC-3AFE-808E-B32D-6EE06CDC6BE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MirrorMirrorOnTheWall", "Assembly-CSharp.csproj", "{2EECDACF-D769-427E-BE96-2ABEAD51350C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MirrorMirrorOnTheWall", "MirrorMirrorOnTheWall.csproj", "{A51E7055-D3C4-CED1-BD19-4CC92D9D0EFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MirrorMirrorOnTheWall", "Assembly-CSharp-Editor-firstpass.csproj", "{E9DC1270-5E35-86F6-2BE7-9E167E0F874B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MirrorMirrorOnTheWall.Editor.Plugins", "MirrorMirrorOnTheWall.Editor.Plugins.csproj", "{4E104F8E-7D0E-6101-BFE9-ABBEFAA8EFA9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,23 +13,20 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C563DAAE-B369-A7FD-ABED-0BF3FEA96047}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C563DAAE-B369-A7FD-ABED-0BF3FEA96047}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C563DAAE-B369-A7FD-ABED-0BF3FEA96047}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C563DAAE-B369-A7FD-ABED-0BF3FEA96047}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2EECDACF-D769-427E-BE96-2ABEAD51350C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2EECDACF-D769-427E-BE96-2ABEAD51350C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2EECDACF-D769-427E-BE96-2ABEAD51350C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2EECDACF-D769-427E-BE96-2ABEAD51350C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E9DC1270-5E35-86F6-2BE7-9E167E0F874B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E9DC1270-5E35-86F6-2BE7-9E167E0F874B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E9DC1270-5E35-86F6-2BE7-9E167E0F874B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E9DC1270-5E35-86F6-2BE7-9E167E0F874B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A30213FC-3AFE-808E-B32D-6EE06CDC6BE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A30213FC-3AFE-808E-B32D-6EE06CDC6BE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A30213FC-3AFE-808E-B32D-6EE06CDC6BE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A30213FC-3AFE-808E-B32D-6EE06CDC6BE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A51E7055-D3C4-CED1-BD19-4CC92D9D0EFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A51E7055-D3C4-CED1-BD19-4CC92D9D0EFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A51E7055-D3C4-CED1-BD19-4CC92D9D0EFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A51E7055-D3C4-CED1-BD19-4CC92D9D0EFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E104F8E-7D0E-6101-BFE9-ABBEFAA8EFA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E104F8E-7D0E-6101-BFE9-ABBEFAA8EFA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E104F8E-7D0E-6101-BFE9-ABBEFAA8EFA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E104F8E-7D0E-6101-BFE9-ABBEFAA8EFA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Assembly-CSharp.csproj
 	EndGlobalSection
 EndGlobal

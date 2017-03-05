@@ -22,7 +22,7 @@ public class KinectUICursor : AbstractKinectUICursor
     public override void ProcessData()
     {
         // update pos
-        transform.position = _data.GetHandScreenPosition();
+        cursor.transform.position = _data.GetHandScreenPosition();
         Debug.Log("Process: " + _data.GetHandScreenPosition());
         if (_data.IsPressing)
         {
@@ -38,6 +38,6 @@ public class KinectUICursor : AbstractKinectUICursor
         {
             _image.color = normalColor;
         }
-        _image.transform.localScale = _initScale;
+        cursor.transform.localScale = _initScale;
     }
 }
