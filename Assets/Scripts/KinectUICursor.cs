@@ -23,7 +23,7 @@ public class KinectUICursor : AbstractKinectUICursor
     {
         // update pos
         cursor.transform.position = _data.GetHandScreenPosition();
-        Debug.Log("Process: " + _data.GetHandScreenPosition());
+        //Debug.Log("Process: " + _data.GetHandScreenPosition());
         if (_data.IsPressing)
         {
             _image.color = clickColor;

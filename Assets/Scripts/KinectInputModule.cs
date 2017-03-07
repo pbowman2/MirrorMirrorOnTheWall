@@ -16,6 +16,9 @@ public class KinectInputModule : BaseInputModule
     private float _scrollSpeed = 3.5f;
     [SerializeField]
     private float _waitOverTime = 2f;
+    [SerializeField]
+    private float _pressWeight = 0f;
+
 
     PointerEventData _handPointerData;
 
@@ -79,26 +82,48 @@ public class KinectInputModule : BaseInputModule
         ProcessHover();
         ProcessPress();
         // ProcessDrag();
-         ProcessWaitOver();
+        ProcessHoverPress();
     }
 
     /// <summary>
-    /// Processes waitint over componens, if hovererd buttons click type is waitover, process it!
+    /// Processes press if hovering buttons
     /// </summary>
-    private void ProcessWaitOver()
+    private void ProcessHoverPress()
     {
-        if (!_inputData.IsHovering || _inputData.ClickGesture != KinectUIClickGesture.WaitOver)
+        if (_inputData.IsHovering)// || _inputData.ClickGesture != KinectUIClickGesture.WaitOver)
         {
-            _inputData.WaitOverAmount = (Time.time - _inputData.HoverTime) / _waitOverTime;
+            Debug.Log("pressTrack: " + _inputData.pressTrack + "\n");
+            Debug.Log("_pressWeight: " + _pressWeight + "\n");
+           
+            // setup the distance to travel
+            if (_inputData.pressTrack == 0f)
+            {
+                _inputData.pressTrack = _inputData.GetHandScreenPosition().z;
+                _pressWeight = _inputData.pressTrack - 1f;
+            }
 
-            if (Time.time >= _inputData.HoverTime + _waitOverTime)
+            //if(_pressWeight + .8f > _inputData.GetHandScreenPosition().z)
+            //{
+            //    // center cursor on button
+            //    GameObject cursor = GameObject.Find("Cursor");
+            //    var obj = _handPointerData.pointerCurrentRaycast.gameObject;
+            //    cursor.transform.position = new Vector3(obj.transform.position.x, obj.transform.position.y);
+            //}
+
+            // if user pressed far enough to press botton
+            if (_pressWeight > _inputData.GetHandScreenPosition().z)
             {
                 PointerEventData lookData = GetLookPointerEventData(_inputData.GetHandScreenPosition());
                 GameObject go = lookData.pointerCurrentRaycast.gameObject;
                 ExecuteEvents.ExecuteHierarchy(go, lookData, ExecuteEvents.submitHandler);
-                // reset time
-                _inputData.HoverTime = Time.time;
+                _inputData.pressTrack = 0f;
+                _pressWeight = 0f;
             }
+        }
+        else
+        {
+            _inputData.pressTrack = 0f;
+            _pressWeight = 0f;
         }
     }
 
@@ -177,7 +202,7 @@ public class KinectInputData
     private bool _isPressing;//, _isHovering;
     // Hovering Gameobject, needed for WaitOver like clicking detection
     private GameObject _hoveringObject;
-   
+
     // Hovering Gameobject getter setter, needed for WaitOver like clicking detection
     public GameObject HoveringObject
     {
@@ -207,6 +232,8 @@ public class KinectInputData
     public bool IsHovering { get; set; }
     // Is hand dragging a component
     public bool IsDraging { get; set; }
+    // Track the distance traveled to press a button
+    public float pressTrack { get; set; }
     // Is hand pressing a button
     public bool IsPressing
     {
@@ -231,7 +258,7 @@ public class KinectInputData
     public void UpdateComponent(Body body)
     {
         HandPosition = GetVector3FromJoint(body.Joints[JointType.HandRight]);
-        Debug.Log("HandPostion: " + HandPosition + "\n");
+        //Debug.Log("HandPostion: " + HandPosition + "\n");
         CurrentHandState = GetStateFromJointType(body, JointType.HandRight);
         // start tracking if hand is above the elbow
         if (HandPosition.y > GetVector3FromJoint(body.Joints[JointType.SpineBase]).y)
