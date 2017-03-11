@@ -16,9 +16,12 @@ public class SpeechRecog : MonoBehaviour
     void Start()
     {
         // Change size of array for your requirement
-        Keywords_array = new string[2];
+        Keywords_array = new string[5];
         Keywords_array[0] = "mirror mirror on the wall";
         Keywords_array[1] = "hello";
+        Keywords_array[2] = "take a picture";
+        Keywords_array[3] = "change background";
+        Keywords_array[4] = "reset mirror";
 
         // instantiate keyword recognizer, pass keyword array in the constructor
         keywordRecognizer = new KeywordRecognizer(Keywords_array);
@@ -29,6 +32,7 @@ public class SpeechRecog : MonoBehaviour
 
     void OnKeywordsRecognized(PhraseRecognizedEventArgs args)
     {
+        //if(args == keywordRecognizer)
         AudioSource audio = GetComponent<AudioSource>();
         audio.Play();
         Destroy(cube);

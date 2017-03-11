@@ -90,40 +90,44 @@ public class KinectInputModule : BaseInputModule
     /// </summary>
     private void ProcessHoverPress()
     {
-        if (_inputData.IsHovering)// || _inputData.ClickGesture != KinectUIClickGesture.WaitOver)
+        //if (_inputData.IsHovering)// || _inputData.ClickGesture != KinectUIClickGesture.WaitOver)
+        //{
+        //    Debug.Log("pressTrack: " + _inputData.pressTrack + "\n");
+        //    Debug.Log("_pressWeight: " + _pressWeight + "\n");
+
+        //    // setup the distance to travel
+        //    if (_inputData.pressTrack == 0f)
+        //    {
+        //        _inputData.pressTrack = _inputData.GetHandScreenPosition().z;
+        //        _pressWeight = _inputData.pressTrack - 1f;
+        //    }
+
+        //    // if user pressed far enough to press botton
+        //    if (_pressWeight > _inputData.GetHandScreenPosition().z)
+        //    {
+        //        PointerEventData lookData = GetLookPointerEventData(_inputData.GetHandScreenPosition());
+        //        GameObject go = lookData.pointerCurrentRaycast.gameObject;
+        //        ExecuteEvents.ExecuteHierarchy(go, lookData, ExecuteEvents.submitHandler);
+        //        _inputData.pressTrack = 0f;
+        //        _pressWeight = 0f;
+        //    }
+        //}
+        //else
+        //{
+        //    _inputData.pressTrack = 0f;
+        //    _pressWeight = 0f;
+        //}
+        if (!_inputData.IsHovering || _inputData.ClickGesture != KinectUIClickGesture.WaitOver)
         {
-            Debug.Log("pressTrack: " + _inputData.pressTrack + "\n");
-            Debug.Log("_pressWeight: " + _pressWeight + "\n");
-           
-            // setup the distance to travel
-            if (_inputData.pressTrack == 0f)
-            {
-                _inputData.pressTrack = _inputData.GetHandScreenPosition().z;
-                _pressWeight = _inputData.pressTrack - 1f;
-            }
-
-            //if(_pressWeight + .8f > _inputData.GetHandScreenPosition().z)
-            //{
-            //    // center cursor on button
-            //    GameObject cursor = GameObject.Find("Cursor");
-            //    var obj = _handPointerData.pointerCurrentRaycast.gameObject;
-            //    cursor.transform.position = new Vector3(obj.transform.position.x, obj.transform.position.y);
-            //}
-
-            // if user pressed far enough to press botton
-            if (_pressWeight > _inputData.GetHandScreenPosition().z)
+            _inputData.WaitOverAmount = (Time.time - _inputData.HoverTime) / _waitOverTime;
+            if (Time.time >= _inputData.HoverTime + _waitOverTime)
             {
                 PointerEventData lookData = GetLookPointerEventData(_inputData.GetHandScreenPosition());
                 GameObject go = lookData.pointerCurrentRaycast.gameObject;
                 ExecuteEvents.ExecuteHierarchy(go, lookData, ExecuteEvents.submitHandler);
-                _inputData.pressTrack = 0f;
-                _pressWeight = 0f;
+                // reset time
+                _inputData.HoverTime = Time.time;
             }
-        }
-        else
-        {
-            _inputData.pressTrack = 0f;
-            _pressWeight = 0f;
         }
     }
 

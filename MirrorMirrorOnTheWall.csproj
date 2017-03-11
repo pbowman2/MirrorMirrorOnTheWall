@@ -100,6 +100,7 @@
     <Compile Include="Assets\Scripts\Joints.cs" />
     <Compile Include="Assets\Scripts\KinectInputModule.cs" />
     <Compile Include="Assets\Scripts\KinectUICursor.cs" />
+    <Compile Include="Assets\Scripts\KinectUIWaitCursor.cs" />
     <Compile Include="Assets\Scripts\KinectUIWaitOverButton.cs" />
     <Compile Include="Assets\Scripts\Move.cs" />
     <Compile Include="Assets\Scripts\SpeechRecog.cs" />

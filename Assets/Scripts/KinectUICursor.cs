@@ -10,6 +10,14 @@ public class KinectUICursor : AbstractKinectUICursor
     public Color clickColor = new Color(1f, 1f, 1f, 1f);
     public Vector3 clickScale = new Vector3(.8f, .8f, .8f);
 
+    float currentX;
+    float currentY;
+    float targetX;
+    float targetY;
+    float diffX;
+    float diffY;
+    float delta;
+
     private Vector3 _initScale;
 
     public override void Start()
@@ -22,6 +30,18 @@ public class KinectUICursor : AbstractKinectUICursor
     public override void ProcessData()
     {
         // update pos
+        currentX = _data.GetHandScreenPosition().x;
+        currentY = _data.GetHandScreenPosition().y;
+        targetX = _image.transform.position.x;
+        targetY = _image.transform.position.y;
+
+        float diffX = targetX - currentX;
+        float diffY = targetY - currentY;
+        float delta = 0.5f; // 0 = no movement, 1 = move directly to target point. 
+
+        currentX = currentX + delta * diffX;
+        currentY = currentY + delta * diffY;
+
         cursor.transform.position = _data.GetHandScreenPosition();
         //Debug.Log("Process: " + _data.GetHandScreenPosition());
         if (_data.IsPressing)
