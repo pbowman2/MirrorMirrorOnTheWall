@@ -32,9 +32,33 @@ public class SpeechRecog : MonoBehaviour
 
     void OnKeywordsRecognized(PhraseRecognizedEventArgs args)
     {
-        //if(args == keywordRecognizer)
-        AudioSource audio = GetComponent<AudioSource>();
-        audio.Play();
-        Destroy(cube);
+        switch(args.text)
+        {
+            case "mirror mirror on the wall":
+                AudioSource audio = GetComponent<AudioSource>();
+                audio.Play();
+                Destroy(cube);
+                break;
+
+            case "take a picture":
+                // Take picture code here
+                Debug.Log("Case: Take a Picture");
+                break;
+
+            case "change background":
+                // Change Background code here
+                Debug.Log("Case: Change Background");
+                break;
+
+            case "reset mirror":
+                // Reset mirror code here
+                Debug.Log("Case: Reset Mirror");
+                break;
+
+            default:
+                Debug.Log("Case: Defualt");
+                break;
+        }
+
     }
 }
