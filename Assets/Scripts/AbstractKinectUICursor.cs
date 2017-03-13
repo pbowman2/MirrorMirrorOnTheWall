@@ -1,7 +1,11 @@
-﻿using UnityEngine;
+﻿/* * 
+ * Most code from https://nevzatarman.com/2015/07/13/kinect-hand-cursor-for-unity3d/
+ */
+using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using Windows.Kinect;
+
 /// <summary>
 /// Abstract UI component class for hand cursor objects
 /// </summary>

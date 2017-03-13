@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿/* * 
+ * Code from https://nevzatarman.com/2015/07/13/kinect-hand-cursor-for-unity3d/
+ */
+using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 

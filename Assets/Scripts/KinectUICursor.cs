@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿/* * 
+ * Most code from https://nevzatarman.com/2015/07/13/kinect-hand-cursor-for-unity3d/
+ */
+using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using Windows.Kinect;
@@ -9,7 +12,8 @@ public class KinectUICursor : AbstractKinectUICursor
     public Color hoverColor = new Color(1f, 1f, 1f, 1f);
     public Color clickColor = new Color(1f, 1f, 1f, 1f);
     public Vector3 clickScale = new Vector3(.8f, .8f, .8f);
-
+    
+    // help with smoothing the cursor movement
     float currentX;
     float currentY;
     float targetX;
@@ -25,24 +29,24 @@ public class KinectUICursor : AbstractKinectUICursor
         base.Start();
         _initScale = transform.localScale;
         _image.color = new Color(1f, 1f, 1f, 0f);
+        delta = .1f; // 0 = no movement, 1 = move directly to target point. 
+        currentX = 0f;
+        currentY = 0f;
     }
 
     public override void ProcessData()
     {
         // update pos
-        currentX = _data.GetHandScreenPosition().x;
-        currentY = _data.GetHandScreenPosition().y;
-        targetX = _image.transform.position.x;
-        targetY = _image.transform.position.y;
+        targetX = _data.GetHandScreenPosition().x; 
+        targetY = _data.GetHandScreenPosition().y; 
 
-        float diffX = targetX - currentX;
-        float diffY = targetY - currentY;
-        float delta = 0.5f; // 0 = no movement, 1 = move directly to target point. 
-
+        diffX = targetX - currentX;
+        diffY = targetY - currentY;
+        
         currentX = currentX + delta * diffX;
         currentY = currentY + delta * diffY;
 
-        cursor.transform.position = _data.GetHandScreenPosition();
+        cursor.transform.position = new Vector3(currentX, currentY);//_data.GetHandScreenPosition();
         //Debug.Log("Process: " + _data.GetHandScreenPosition());
         if (_data.IsPressing)
         {
@@ -58,6 +62,7 @@ public class KinectUICursor : AbstractKinectUICursor
         {
             _image.color = normalColor;
         }
+
         cursor.transform.localScale = _initScale;
     }
 }

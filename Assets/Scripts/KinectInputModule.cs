@@ -1,10 +1,18 @@
-﻿using System.Collections;
+﻿/* * 
+ * Code from https://nevzatarman.com/2015/07/13/kinect-hand-cursor-for-unity3d/
+ * Only thing different is that are no For loops and it only tracks the Right Hand type.
+ */
+using System.Collections;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
 using UnityEngine;
 using Windows.Kinect;
 using System;
 
+/*
+ * This class tracks the right hans states and position. It also 
+ * handles the interaction with the UI. 
+ */
 [AddComponentMenu("Kinect/Kinect Input Module")]
 [RequireComponent(typeof(EventSystem))]
 public class KinectInputModule : BaseInputModule
@@ -55,11 +63,6 @@ public class KinectInputModule : BaseInputModule
         _inputData.UpdateComponent(body);
     }
 
-    public void NotTrackBody()
-    {
-        _inputData.IsTracking = false;
-    }
-
     // get a pointer event data for a screen position
     private PointerEventData GetLookPointerEventData(Vector3 componentPosition)
     {
@@ -81,7 +84,7 @@ public class KinectInputModule : BaseInputModule
     {
         ProcessHover();
         ProcessPress();
-        // ProcessDrag();
+        ProcessDrag();
         ProcessHoverPress();
     }
 
@@ -90,33 +93,6 @@ public class KinectInputModule : BaseInputModule
     /// </summary>
     private void ProcessHoverPress()
     {
-        //if (_inputData.IsHovering)// || _inputData.ClickGesture != KinectUIClickGesture.WaitOver)
-        //{
-        //    Debug.Log("pressTrack: " + _inputData.pressTrack + "\n");
-        //    Debug.Log("_pressWeight: " + _pressWeight + "\n");
-
-        //    // setup the distance to travel
-        //    if (_inputData.pressTrack == 0f)
-        //    {
-        //        _inputData.pressTrack = _inputData.GetHandScreenPosition().z;
-        //        _pressWeight = _inputData.pressTrack - 1f;
-        //    }
-
-        //    // if user pressed far enough to press botton
-        //    if (_pressWeight > _inputData.GetHandScreenPosition().z)
-        //    {
-        //        PointerEventData lookData = GetLookPointerEventData(_inputData.GetHandScreenPosition());
-        //        GameObject go = lookData.pointerCurrentRaycast.gameObject;
-        //        ExecuteEvents.ExecuteHierarchy(go, lookData, ExecuteEvents.submitHandler);
-        //        _inputData.pressTrack = 0f;
-        //        _pressWeight = 0f;
-        //    }
-        //}
-        //else
-        //{
-        //    _inputData.pressTrack = 0f;
-        //    _pressWeight = 0f;
-        //}
         if (!_inputData.IsHovering || _inputData.ClickGesture != KinectUIClickGesture.WaitOver)
         {
             _inputData.WaitOverAmount = (Time.time - _inputData.HoverTime) / _waitOverTime;
@@ -127,6 +103,38 @@ public class KinectInputModule : BaseInputModule
                 ExecuteEvents.ExecuteHierarchy(go, lookData, ExecuteEvents.submitHandler);
                 // reset time
                 _inputData.HoverTime = Time.time;
+            }
+        }
+    }
+
+    private void ProcessDrag()
+    {
+        // if not pressing we can't drag
+        if (!_inputData.IsPressing)
+        {
+            // Check if we reach drag treshold for any axis, temporary position set when we press an object
+            if (Mathf.Abs(_inputData.TempHandPosition.x - _inputData.HandPosition.x) > _scrollTreshold 
+                || Mathf.Abs(_inputData.TempHandPosition.y - _inputData.HandPosition.y) > _scrollTreshold)
+            {
+                _inputData.IsDraging = true;
+            }
+            else
+            {
+                _inputData.IsDraging = false;
+            }
+            
+            // If dragging use unit's eventhandler to send an event to a scrollview like component
+            if (_inputData.IsDraging)
+            {
+                PointerEventData lookData = GetLookPointerEventData(_inputData.GetHandScreenPosition());
+                eventSystem.SetSelectedGameObject(null);
+                //Debug.Log("drag");
+                GameObject go = lookData.pointerCurrentRaycast.gameObject;
+                PointerEventData pEvent = new PointerEventData(eventSystem);
+                pEvent.dragging = true;
+                pEvent.scrollDelta = (_inputData.TempHandPosition - _inputData.HandPosition) * _scrollSpeed;
+                pEvent.useDragThreshold = true;
+                ExecuteEvents.ExecuteHierarchy(go, pEvent, ExecuteEvents.scrollHandler);
             }
         }
     }
@@ -231,7 +239,7 @@ public class KinectInputData
     // Click gesture of button
     public KinectUIClickGesture ClickGesture { get; private set; }
     // Is this hand tracking started
-    public bool IsTracking { get; set; }
+    public bool IsTracking { get; private set; }
     // Is this hand over a UI component
     public bool IsHovering { get; set; }
     // Is hand dragging a component
