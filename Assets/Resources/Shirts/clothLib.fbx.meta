@@ -1,0 +1,196 @@
+fileFormatVersion: 2
+guid: 899e9a584012acf488ea29b62321c7e7
+timeCreated: 1489553200
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Bandanna
+    100002: Boots_1_low_brown leather
+    100004: Boots_1_low_brown leather_MeshPart0
+    100006: Boots_1_low_brown leather_MeshPart1
+    100008: Boots_1_low_brown leather_MeshPart2
+    100010: Boots_1_low_brown leather_MeshPart3
+    100012: Boots_1_low_brown leather_MeshPart4
+    100014: Boots_2_high_brown_leather
+    100016: Boots_3_brown_leather
+    100018: BootsLock
+    100020: Camera
+    100022: //RootNode
+    100024: Hood_1
+    100026: Overcoat_brown_leather
+    100028: Pants_1_red-brown
+    100030: Pants_2_beige
+    100032: Pants_3_salmon
+    100034: Pants_4_red-brown
+    100036: Shirt_1_Blue
+    100038: Shirt_2_WithFurCoat
+    100040: Shirt_3_beige
+    100042: Shirt_4_white
+    100044: Shirt_5_shot_sleved_beige
+    100046: Skirt_1_gray
+    100048: West_1_gray
+    100050: West_2_orange
+    400000: Bandanna
+    400002: Boots_1_low_brown leather
+    400004: Boots_1_low_brown leather_MeshPart0
+    400006: Boots_1_low_brown leather_MeshPart1
+    400008: Boots_1_low_brown leather_MeshPart2
+    400010: Boots_1_low_brown leather_MeshPart3
+    400012: Boots_1_low_brown leather_MeshPart4
+    400014: Boots_2_high_brown_leather
+    400016: Boots_3_brown_leather
+    400018: BootsLock
+    400020: Camera
+    400022: //RootNode
+    400024: Hood_1
+    400026: Overcoat_brown_leather
+    400028: Pants_1_red-brown
+    400030: Pants_2_beige
+    400032: Pants_3_salmon
+    400034: Pants_4_red-brown
+    400036: Shirt_1_Blue
+    400038: Shirt_2_WithFurCoat
+    400040: Shirt_3_beige
+    400042: Shirt_4_white
+    400044: Shirt_5_shot_sleved_beige
+    400046: Skirt_1_gray
+    400048: West_1_gray
+    400050: West_2_orange
+    2300000: Bandanna
+    2300002: Boots_1_low_brown leather_MeshPart0
+    2300004: Boots_1_low_brown leather_MeshPart1
+    2300006: Boots_1_low_brown leather_MeshPart2
+    2300008: Boots_1_low_brown leather_MeshPart3
+    2300010: Boots_1_low_brown leather_MeshPart4
+    2300012: Boots_2_high_brown_leather
+    2300014: Boots_3_brown_leather
+    2300016: BootsLock
+    2300018: Hood_1
+    2300020: Overcoat_brown_leather
+    2300022: Pants_1_red-brown
+    2300024: Pants_2_beige
+    2300026: Pants_3_salmon
+    2300028: Pants_4_red-brown
+    2300030: Shirt_1_Blue
+    2300032: Shirt_2_WithFurCoat
+    2300034: Shirt_3_beige
+    2300036: Shirt_4_white
+    2300038: Shirt_5_shot_sleved_beige
+    2300040: Skirt_1_gray
+    2300042: West_1_gray
+    2300044: West_2_orange
+    3300000: Bandanna
+    3300002: Boots_1_low_brown leather_MeshPart0
+    3300004: Boots_1_low_brown leather_MeshPart1
+    3300006: Boots_1_low_brown leather_MeshPart2
+    3300008: Boots_1_low_brown leather_MeshPart3
+    3300010: Boots_1_low_brown leather_MeshPart4
+    3300012: Boots_2_high_brown_leather
+    3300014: Boots_3_brown_leather
+    3300016: BootsLock
+    3300018: Hood_1
+    3300020: Overcoat_brown_leather
+    3300022: Pants_1_red-brown
+    3300024: Pants_2_beige
+    3300026: Pants_3_salmon
+    3300028: Pants_4_red-brown
+    3300030: Shirt_1_Blue
+    3300032: Shirt_2_WithFurCoat
+    3300034: Shirt_3_beige
+    3300036: Shirt_4_white
+    3300038: Shirt_5_shot_sleved_beige
+    3300040: Skirt_1_gray
+    3300042: West_1_gray
+    3300044: West_2_orange
+    4300000: Boots_1_low_brown leather_MeshPart0
+    4300002: Boots_1_low_brown leather_MeshPart1
+    4300004: Boots_1_low_brown leather_MeshPart2
+    4300006: Boots_1_low_brown leather_MeshPart3
+    4300008: Boots_1_low_brown leather_MeshPart4
+    4300010: BootsLock
+    4300012: Pants_1_red-brown
+    4300014: Shirt_2_WithFurCoat
+    4300016: Shirt_1_Blue
+    4300018: Pants_2_beige
+    4300020: Boots_2_high_brown_leather
+    4300022: Pants_3_salmon
+    4300024: Pants_4_red-brown
+    4300026: Shirt_3_beige
+    4300028: Shirt_4_white
+    4300030: West_1_gray
+    4300032: West_2_orange
+    4300034: Boots_3_brown_leather
+    4300036: Skirt_1_gray
+    4300038: Shirt_5_shot_sleved_beige
+    4300040: Overcoat_brown_leather
+    4300042: Bandanna
+    4300044: Hood_1
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,6 +1,6 @@
 ﻿Shader "DX11/GreenScreenShader" {
-SubShader {
-Pass {
+SubShader{
+Pass{
 
 CGPROGRAM
 #pragma target 5.0
@@ -12,6 +12,7 @@ CGPROGRAM
 
 Texture2D _MainTex;
 
+sampler image;
 //sampler SampleType;
 sampler sampler_MainTex;
 
@@ -25,30 +26,33 @@ StructuredBuffer<float> bodyIndexBuffer;
 
 struct ps_input {
 	float4 pos : SV_POSITION;
-    float2 tex : TEXCOORD0;
+	float2 tex : TEXCOORD0;
 };
 
-ps_input vert (vs_input v)
+ps_input vert(vs_input v)
 {
 	ps_input o;
-	o.pos = mul (UNITY_MATRIX_MVP, v.pos);
+	o.pos = mul(UNITY_MATRIX_MVP, v.pos);
 	o.tex = v.tex;
 	// Flip x texture coordinate to mimic mirror.
 	o.tex.x = 1 - v.tex.x;
 	return o;
 }
+float4 _MainTex_TexelSize;
 
-float4 frag (ps_input i, in uint id : SV_InstanceID) : COLOR
+
+float4 frag(ps_input i, in uint id : SV_InstanceID) : COLOR
 {
-	float4 o;
-	
+	float4 o = { 0.0f, 0.0f, 0.0f, 0.0f };
+	//if (_MainTex_TexelSize.y < 0)
+	//i.uv.y = 1.0 - i.uv.y;
 	int colorWidth = (int)(i.tex.x * (float)1920);
 	int colorHeight = (int)(i.tex.y * (float)1080);
 	int colorIndex = (int)(colorWidth + colorHeight * (float)1920);
+	half4 img = tex2D(image, i.tex);
+	o = float4(img.r, img.g, img.b, img.g);// tex2D(image, i.uv); //float4(0, 1, 0, 1);
 	
-	o = float4(0, 1, 0, 1);
-	
-	if ((!isinf(depthCoordinates[colorIndex].x) && !isnan(depthCoordinates[colorIndex].x) && depthCoordinates[colorIndex].x != 0) || 
+	if ((!isinf(depthCoordinates[colorIndex].x) && !isnan(depthCoordinates[colorIndex].x) && depthCoordinates[colorIndex].x != 0) ||
 		!isinf(depthCoordinates[colorIndex].y) && !isnan(depthCoordinates[colorIndex].y) && depthCoordinates[colorIndex].y != 0)
 	{
 		// We have valid depth data coordinates from our coordinate mapper.  Find player mask from corresponding depth points.
