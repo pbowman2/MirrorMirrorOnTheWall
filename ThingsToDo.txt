@@ -1,15 +1,14 @@
 Need to do:
-Put back button on screen
-Implement Speech options
-Onclick events
-Dragging 
-Select clothes
-Back button for each 
-Find Jeans - and suit? 
-Animate Clothes
+Implement Speech options - Gabi
+Onclick events - Gabi
+Dragging - Andrew
+Select clothes - Andrew
+Back button for each  - Andrew
+Find Jeans - and suit? - Gabi
+Animate Clothes - Paul
 Video Screen Saver
-Track one person
-Change background (with code)
-Take a picture - save picture get their email.
-Activate the program by  saying “Mirror, mirror, on the wall” and if there is person in the view.
+Track one person - Andrew
+Take a picture - Gabi
+Resize Backgrounds - Gabi
 Hats?
+Resolution

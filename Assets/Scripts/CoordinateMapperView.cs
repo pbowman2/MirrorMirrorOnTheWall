@@ -13,10 +13,17 @@ public class CoordinateMapperView : MonoBehaviour
     DepthSpacePoint[] depthPoints;
     byte[] bodyIndexPoints;
 
-    void Start()
+    public void setImage(Texture2D incommingImage)
+    {
+        image = incommingImage;
+      //  Update();
+        
+    }
+
+    public void Start()
     {
         ReleaseBuffers();
-
+    
         if (CoordinateMapperManager == null)
         {
             return;
