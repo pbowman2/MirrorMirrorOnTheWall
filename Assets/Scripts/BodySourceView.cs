@@ -7,7 +7,8 @@ public class BodySourceView : MonoBehaviour
 {
     public Material BoneMaterial;
     public GameObject BodySourceManager;
-    
+    bool drawKey = false; // draw the skeleton boxes
+
     private Dictionary<ulong, GameObject> _Bodies = new Dictionary<ulong, GameObject>();
     private BodySourceManager _BodyManager;
     
@@ -45,7 +46,12 @@ public class BodySourceView : MonoBehaviour
     
     void Update () 
     {
-        if (BodySourceManager == null)
+        if (Input.GetKeyDown("s") && drawKey == false)
+            drawKey = true;
+        else if (Input.GetKeyDown("s") && drawKey == true)
+            drawKey = false;
+
+            if (BodySourceManager == null)
         {
             return;
         }
@@ -99,10 +105,11 @@ public class BodySourceView : MonoBehaviour
             {
                 if(!_Bodies.ContainsKey(body.TrackingId))
                 {
-                    _Bodies[body.TrackingId] = CreateBodyObject(body.TrackingId);
+                   _Bodies[body.TrackingId] = CreateBodyObject(body.TrackingId);
                 }
+                
+                //RefreshBodyObject(body, _Bodies[body.TrackingId]);
 
-                RefreshBodyObject(body, _Bodies[body.TrackingId]);
                 //Tracking for UI Component  
                 KinectInputModule.instance.TrackBody(body);
             }
@@ -112,16 +119,15 @@ public class BodySourceView : MonoBehaviour
     private GameObject CreateBodyObject(ulong id)
     {
         GameObject body = new GameObject("Body:" + id);
-        
+
         for (Kinect.JointType jt = Kinect.JointType.SpineBase; jt <= Kinect.JointType.ThumbRight; jt++)
         {
             GameObject jointObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            
             LineRenderer lr = jointObj.AddComponent<LineRenderer>();
             lr.SetVertexCount(2);
             lr.material = BoneMaterial;
             lr.SetWidth(0.05f, 0.05f);
-            
+
             jointObj.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
             jointObj.name = jt.ToString();
             jointObj.transform.parent = body.transform;
@@ -143,7 +149,9 @@ public class BodySourceView : MonoBehaviour
             }
             
             Transform jointObj = bodyObject.transform.FindChild(jt.ToString());
+
             jointObj.localPosition = GetVector3FromJoint(sourceJoint);
+
             
             LineRenderer lr = jointObj.GetComponent<LineRenderer>();
             if(targetJoint.HasValue)

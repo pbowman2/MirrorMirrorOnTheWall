@@ -91,6 +91,7 @@
     <Compile Include="Assets\KinectView\Scripts\MultiSourceManager.cs" />
     <Compile Include="Assets\KinectView\Scripts\Timer.cs" />
     <Compile Include="Assets\Scripts\AbstractKinectUICursor.cs" />
+    <Compile Include="Assets\Scripts\AbstractPanel.cs" />
     <Compile Include="Assets\Scripts\BodySourceManager.cs" />
     <Compile Include="Assets\Scripts\BodySourceView.cs" />
     <Compile Include="Assets\Scripts\ColorSourceManager.cs" />
@@ -103,7 +104,10 @@
     <Compile Include="Assets\Scripts\KinectUIWaitCursor.cs" />
     <Compile Include="Assets\Scripts\KinectUIWaitOverButton.cs" />
     <Compile Include="Assets\Scripts\Move.cs" />
+    <Compile Include="Assets\Scripts\PantsPanel.cs" />
+    <Compile Include="Assets\Scripts\ShirtPanel.cs" />
     <Compile Include="Assets\Scripts\SpeechRecog.cs" />
+    <Compile Include="Assets\Scripts\SuitPanel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Materials\GreenScreenShader.shader" />

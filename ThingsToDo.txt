@@ -1,9 +1,7 @@
 Need to do:
 Implement Speech options - Gabi
 Onclick events - Gabi
-Dragging - Andrew
 Select clothes - Andrew
-Back button for each  - Andrew
 Find Jeans - and suit? - Gabi
 Animate Clothes - Paul
 Video Screen Saver
