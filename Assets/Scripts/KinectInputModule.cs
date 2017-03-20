@@ -24,9 +24,6 @@ public class KinectInputModule : BaseInputModule
     private float _scrollSpeed = 3.5f;
     [SerializeField]
     private float _waitOverTime = 2f;
-    [SerializeField]
-    private float _pressWeight = 0f;
-
 
     PointerEventData _handPointerData;
 

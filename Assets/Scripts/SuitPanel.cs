@@ -9,5 +9,7 @@ public class SuitPanel : AbstractPanel
     public override void setPanel()
     {
         panel = GameObject.Find("SuitPanel");
+        stopLeftX = 3082f;
+        stopRightX = 2639f;
     }
 }

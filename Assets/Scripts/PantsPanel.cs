@@ -8,6 +8,8 @@ public class PantsPanel : AbstractPanel
     public override void setPanel()
     {
         panel = GameObject.Find("PantPanel");
+        stopRightX = 2536f;
+        stopLeftX = 3113f;
     }
 	
 }

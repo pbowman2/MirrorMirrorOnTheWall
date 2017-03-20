@@ -9,5 +9,7 @@ public class ShirtPanel : AbstractPanel
     public override void setPanel()
     {
         panel = GameObject.Find("ShirtPanel");
+        stopRightX = -330f;
+        stopLeftX = 2566f;
     }
 }
