@@ -22,6 +22,8 @@ public class KinectUICursor : AbstractKinectUICursor
     float diffY;
     float delta;
 
+    GameObject panel;
+
     private Vector3 _initScale;
 
     public override void Start()
@@ -32,6 +34,8 @@ public class KinectUICursor : AbstractKinectUICursor
         delta = .1f; // 0 = no movement, 1 = move directly to target point. 
         currentX = 0f;
         currentY = 0f;
+        panel = GameObject.Find("IsPressed");
+
     }
 
     public override void ProcessData()
@@ -46,12 +50,16 @@ public class KinectUICursor : AbstractKinectUICursor
         currentX = currentX + delta * diffX;
         currentY = currentY + delta * diffY;
 
-        cursor.transform.position = new Vector3(currentX, currentY);//_data.GetHandScreenPosition();
+        cursor.transform.position = new Vector3(currentX, currentY);
         //Debug.Log("Process: " + _data.GetHandScreenPosition());
         if (_data.IsPressing)
         {
+
             _image.color = clickColor;
             _image.transform.localScale = clickScale;
+            panel = GameObject.Find("IsPressed");
+            panel.GetComponent<Pressing>().handpressed = true;
+
             return;
         }
         if (_data.IsHovering)

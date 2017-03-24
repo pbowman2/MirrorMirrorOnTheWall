@@ -28,7 +28,7 @@ public abstract class AbstractPanel : MonoBehaviour
         {
             if (panel.transform.position.x >= stopRightX)
             {
-                currentPosX -= 5;
+                currentPosX -= 1;
                 panel.transform.position = new Vector3(currentPosX, panel.transform.position.y, panel.transform.position.z);
             }
         }
@@ -37,7 +37,7 @@ public abstract class AbstractPanel : MonoBehaviour
         {
             if (panel.transform.position.x <= stopLeftX)
             {
-                currentPosX += 5;
+                currentPosX += 1;
                 panel.transform.position = new Vector3(currentPosX, panel.transform.position.y, panel.transform.position.z);
             }
         }

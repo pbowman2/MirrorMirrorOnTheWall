@@ -30,18 +30,19 @@ public class SpeechRecog : MonoBehaviour
     string emailAddressString;
     public Texture2DArray images;
     public int iterator = 0;
+    public int picturesTaken = 0;
+    GameObject canvas;
 
 
     // Use this for initialization
     void Start()
     {
         // Change size of array for your requirement
-        Keywords_array = new string[5];
+        Keywords_array = new string[4];
         Keywords_array[0] = "mirror mirror on the wall";
-        Keywords_array[1] = "hello";
-        Keywords_array[2] = "take a picture";
-        Keywords_array[3] = "change background";
-        Keywords_array[4] = "reset mirror";
+        Keywords_array[1] = "take a picture";
+        Keywords_array[2] = "change background";
+        Keywords_array[3] = "reset mirror";
 
         // instantiate keyword recognizer, pass keyword array in the constructor
         keywordRecognizer = new KeywordRecognizer(Keywords_array);
@@ -78,23 +79,27 @@ public class SpeechRecog : MonoBehaviour
                 break;
 
             case "take a picture":
-                // Take picture code here
-                
-                Application.CaptureScreenshot("Screenshot.png");
-                //emails.SetActive(true);
-               // while(emailsText == null)
-               /* {
-                    Debug.Log("EmailAddressString: " + emailsText);
-
-                }
-                */
-               // GameObject.Find("EmailAddress").SetActive(true);
-                //GameObject newGO = (GameObject)Instantiate(theprefab);
-               // emailAddressString = GameObject.Find("EmailAddress    Text").ToString();// };
-               // newGO.GetComponent<"SubmitEmail">().onClick.AddListener(action1);//find the button and set
-               // Debug.Log("EmailAddressString: " + emailAddressString);
-
+                // Take picture code here          
+                canvas = GameObject.Find("Canvas");
+                canvas.SetActive(false);
+               /* HAVENT TESTED float timers = Time.time + 0.03f;
+                while (Time.time != timers)
+                {
+                    Debug.Log("Time: " + timers);
+                }*/
+           /*     _inputData.WaitOverAmount = (Time.time - _inputData.HoverTime) / _waitOverTime;
+                if (Time.time >= _inputData.HoverTime + _waitOverTime)
+                {
+                    PointerEventData lookData = GetLookPointerEventData(_inputData.GetHandScreenPosition());
+                    GameObject go = lookData.pointerCurrentRaycast.gameObject;
+                    ExecuteEvents.ExecuteHierarchy(go, lookData, ExecuteEvents.submitHandler);
+                    // reset time
+                    _inputData.HoverTime = Time.time;
+                }*/
+                Application.CaptureScreenshot("Screenshot" + picturesTaken + ".png");
+                picturesTaken++;
                 Debug.Log("Case: Take a Picture");
+                canvas.SetActive(true);
                 break;
 
             case "change background":
@@ -103,7 +108,14 @@ public class SpeechRecog : MonoBehaviour
                 Texture2D incommingImage = backgroundPan[iterator];
                 Debug.Log("Iterator: " + iterator);
                 Debug.Log("Background: " + incommingImage.name);
-                iterator++;
+                if (iterator + 1== backgroundPan.Length)
+                {
+                    iterator = 0;
+                }
+                else
+                {
+                    iterator++;
+                }
                 removeBackground.GetComponent<CoordinateMapperView>().setImage(incommingImage);
                 removeBackground.GetComponent<CoordinateMapperView>().Start();
                 Debug.Log("Case: Change Background");

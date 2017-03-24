@@ -1,12 +1,6 @@
 Need to do:
-Implement Speech options - Gabi
-Onclick events - Gabi
-Select clothes - Andrew
-Find Jeans - and suit? - Gabi
 Animate Clothes - Paul
 Video Screen Saver
-Track one person - Andrew
 Take a picture - Gabi
-Resize Backgrounds - Gabi
 Hats?
-Resolution
+Change scroll buttons to look nice (scrollup and scroll down for shirts, pants, suits, backgrounds)
