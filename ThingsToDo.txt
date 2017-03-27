@@ -3,4 +3,3 @@ Animate Clothes - Paul
 Video Screen Saver
 Take a picture - Gabi
 Hats?
-Change scroll buttons to look nice (scrollup and scroll down for shirts, pants, suits, backgrounds)
