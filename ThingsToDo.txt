@@ -3,3 +3,4 @@ Animate Clothes - Paul
 Video Screen Saver
 Take a picture - Gabi
 Hats?
+When user leaves view program resets - Andrew 

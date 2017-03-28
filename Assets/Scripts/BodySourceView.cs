@@ -2,12 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using Kinect = Windows.Kinect;
+using UnityEngine.SceneManagement;
 
 public class BodySourceView : MonoBehaviour 
 {
     public Material BoneMaterial;
     public GameObject BodySourceManager;
     bool drawKey = false; // draw the skeleton boxes
+    public GameObject cover;
 
     private Dictionary<ulong, GameObject> _Bodies = new Dictionary<ulong, GameObject>();
     private BodySourceManager _BodyManager;
@@ -112,6 +114,13 @@ public class BodySourceView : MonoBehaviour
 
                 //Tracking for UI Component  
                 KinectInputModule.instance.TrackBody(body);
+            }
+            else
+            {
+                if (cover == null)
+                    cover = GameObject.Find("ScreenCover");
+
+                cover.SetActive(true);
             }
         }
     }

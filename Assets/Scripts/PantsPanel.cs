@@ -68,7 +68,7 @@ public class PantsPanel : MonoBehaviour
 
         //Debug.Log("Cursur: " + curser.transform.position.x + " : " + curser.transform.position.y);
 
-        if (curser.transform.position.x < 992 && curser.transform.position.x > 801 && pressed == true)
+        if (curser.transform.position.x < 992 && curser.transform.position.x > 740 && pressed == true)
         {
             pressingObject.GetComponent<Pressing>().handpressed = false;
             pressed = false;

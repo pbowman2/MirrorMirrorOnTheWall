@@ -32,6 +32,7 @@ public class SpeechRecog : MonoBehaviour
     public int iterator = 0;
     public int picturesTaken = 0;
     GameObject canvas;
+    GameObject cover;
 
 
     // Use this for initialization
@@ -39,11 +40,12 @@ public class SpeechRecog : MonoBehaviour
     {
         // Change size of array for your requirement
         Keywords_array = new string[4];
-        Keywords_array[0] = "mirror mirror on the wall";
+        Keywords_array[0] = "hello";
         Keywords_array[1] = "take a picture";
         Keywords_array[2] = "change background";
-        Keywords_array[3] = "reset mirror";
+        Keywords_array[3] = "reset";
 
+        cover = GameObject.Find("ScreenCover");
         // instantiate keyword recognizer, pass keyword array in the constructor
         keywordRecognizer = new KeywordRecognizer(Keywords_array);
         keywordRecognizer.OnPhraseRecognized += OnKeywordsRecognized;
@@ -57,7 +59,8 @@ public class SpeechRecog : MonoBehaviour
 
         switch (args.text)
         {
-            case "mirror mirror on the wall":
+            case "hello":
+                Debug.Log("Case: HELLLO");
                 //check to see if there is a body in front of the Kinect.
                 bodyManager = BodySrcManager.GetComponent<BodySourceManager>();
                 bodies = bodyManager.GetData();
@@ -71,7 +74,7 @@ public class SpeechRecog : MonoBehaviour
                 { 
                     AudioSource audio = GetComponent<AudioSource>();
                     audio.Play();
-                    Destroy(cube);
+                    cover.SetActive(false);
                 }
                 else
                     Debug.Log("Case: Your not there");
@@ -121,7 +124,7 @@ public class SpeechRecog : MonoBehaviour
                 Debug.Log("Case: Change Background");
                 break;
 
-            case "reset mirror":
+            case "reset":
                 // Reset mirror code here
                 SceneManager.LoadScene("Test3");
                 Debug.Log("Case: Reset Mirror");
