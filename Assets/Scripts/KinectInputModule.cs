@@ -24,9 +24,6 @@ public class KinectInputModule : BaseInputModule
     private float _scrollSpeed = 3.5f;
     [SerializeField]
     private float _waitOverTime = 2f;
-    [SerializeField]
-    private float _pressWeight = 0f;
-
 
     PointerEventData _handPointerData;
 
@@ -122,13 +119,13 @@ public class KinectInputModule : BaseInputModule
             {
                 _inputData.IsDraging = false;
             }
-            
+
             // If dragging use unit's eventhandler to send an event to a scrollview like component
             if (_inputData.IsDraging)
             {
                 PointerEventData lookData = GetLookPointerEventData(_inputData.GetHandScreenPosition());
                 eventSystem.SetSelectedGameObject(null);
-                //Debug.Log("drag");
+                // Debug.Log("drag");
                 GameObject go = lookData.pointerCurrentRaycast.gameObject;
                 PointerEventData pEvent = new PointerEventData(eventSystem);
                 pEvent.dragging = true;

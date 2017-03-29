@@ -10,6 +10,7 @@ public abstract class AbstractPanel : MonoBehaviour
     protected KinectInputData _data;
     protected float currentPosX;
     protected float handPosX;
+    protected float stopRightX, stopLeftX;  // stops the menu from going off the screen
 
     // Use this for initialization
     public virtual void Start ()
@@ -22,17 +23,23 @@ public abstract class AbstractPanel : MonoBehaviour
 	public virtual void Update () {
         //get position of hand on the sreen and move the panel according to the hand
         currentPosX = panel.transform.position.x;
-        if (_data.GetHandScreenPosition().x 
+        if (_data.GetHandScreenPosition().x
             > 700f && _data.GetHandScreenPosition().y < 1300f)
         {
-            currentPosX += 5;
-            panel.transform.position = new Vector3(currentPosX, panel.transform.position.y);
+            if (panel.transform.position.x >= stopRightX)
+            {
+                currentPosX -= 1;
+                panel.transform.position = new Vector3(currentPosX, panel.transform.position.y, panel.transform.position.z);
+            }
         }
-        else if (_data.GetHandScreenPosition().x 
+        else if (_data.GetHandScreenPosition().x
             < 300f && _data.GetHandScreenPosition().y < 1300f)
         {
-            currentPosX -= 5;
-            panel.transform.position = new Vector3(currentPosX, panel.transform.position.y);
+            if (panel.transform.position.x <= stopLeftX)
+            {
+                currentPosX += 1;
+                panel.transform.position = new Vector3(currentPosX, panel.transform.position.y, panel.transform.position.z);
+            }
         }
     }
 

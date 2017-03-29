@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 8edc195bb5aae50439fc3dead69ccef7
-timeCreated: 1489552603
+timeCreated: 1490120303
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -22,6 +22,7 @@ ModelImporter:
     2300000: Shirt
     3300000: Shirt
     4300000: Shirt
+    9500000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
@@ -32,11 +33,12 @@ ModelImporter:
     resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
-    animationImportErrors: 
+    animationImportErrors: "Invalid Avatar Rig Configuration. Missing or invalid transform:\n\tRequired
+      human bone 'Hips' not found\n"
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -70,7 +72,42 @@ ModelImporter:
   humanDescription:
     serializedVersion: 2
     human: []
-    skeleton: []
+    skeleton:
+    - name: Shirt_male-fbx(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Light_back_fill
+      parentName: Shirt_male-fbx(Clone)
+      position: {x: 0.061297137, y: 0.3997459, z: -0.5244498}
+      rotation: {x: -0.0073694247, y: 0.9551676, z: 0.29450658, w: 0.029436076}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Light_key
+      parentName: Shirt_male-fbx(Clone)
+      position: {x: -0.68111455, y: 0.20605095, z: 0.3213948}
+      rotation: {x: -0.17079353, y: -0.5075579, z: -0.10342568, w: 0.83816326}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Light_left_rim
+      parentName: Shirt_male-fbx(Clone)
+      position: {x: 0.99541444, y: 0.25443435, z: 0.2828893}
+      rotation: {x: 8.6075574e-17, y: 0.63159335, z: 1.08794884e-16, w: 0.77529985}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Shirt
+      parentName: Shirt_male-fbx(Clone)
+      position: {x: 0.06443761, y: 0.10868595, z: -0.013509892}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VRayPhysicalCamera01
+      parentName: Shirt_male-fbx(Clone)
+      position: {x: 0.04412849, y: 0.1384624, z: 0.29978484}
+      rotation: {x: -0.06972892, y: -0.02800705, z: -0.001958442, w: 0.99717087}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VRayPhysicalCamera01.Target
+      parentName: Shirt_male-fbx(Clone)
+      position: {x: 0.06438053, y: 0.087753356, z: -0.06046042}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -81,10 +118,10 @@ ModelImporter:
     rootMotionBoneName: 
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 3
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
