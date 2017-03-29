@@ -10,6 +10,8 @@ public class Joints : MonoBehaviour {
     public JointType TrackedLeft;
     public JointType TrackedRight;
     public JointType TrackedMiddle;
+    public JointType TrackedTop;
+    public JointType TrackedBottom;
     private BodySourceManager bodyManager;
     private Body[] bodies;
     public int multiplier;
@@ -51,8 +53,10 @@ public class Joints : MonoBehaviour {
                 var posLeft = body.Joints[TrackedLeft].Position;
                 var posRight = body.Joints[TrackedRight].Position;
                 var posMid = body.Joints[TrackedMiddle].Position;
-                gameObject.transform.position = new Vector3(posMid.X, posMid.Y);
-                gameObject.transform.localScale = new Vector3(posLeft.X * 66, posLeft.Y*66);
+                var posBot = body.Joints[TrackedBottom].Position;
+                var posTop = body.Joints[TrackedTop].Position;
+                gameObject.transform.position = new Vector3(posMid.X, posMid.Y,11F);
+                //gameObject.transform.localScale = new Vector3(posLeft.X * multiplier, posLeft.X * multiplier, 30F);
             }
         }
 		
