@@ -55,8 +55,9 @@ public class Joints : MonoBehaviour {
                 var posMid = body.Joints[TrackedMiddle].Position;
                 var posBot = body.Joints[TrackedBottom].Position;
                 var posTop = body.Joints[TrackedTop].Position;
-                gameObject.transform.position = new Vector3(posMid.X, posMid.Y,11F);
-                //gameObject.transform.localScale = new Vector3(posLeft.X * multiplier, posLeft.X * multiplier, 30F);
+                var mult = System.Math.Abs(posMid.X - 5)* 10;
+                gameObject.transform.position = new Vector3((posMid.X * mult) + 15, (posMid.Y * mult) - 15,90F);
+                gameObject.transform.localScale = new Vector3(multiplier, multiplier, 50F);
             }
         }
 		
