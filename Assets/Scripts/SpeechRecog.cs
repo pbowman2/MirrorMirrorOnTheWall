@@ -74,7 +74,8 @@ public class SpeechRecog : MonoBehaviour
                 { 
                     AudioSource audio = GetComponent<AudioSource>();
                     audio.Play();
-                    cover.SetActive(false);
+                    //cover.SetActive(false);
+                    cover.GetComponent<MeshRenderer>().enabled = false;
                 }
                 else
                     Debug.Log("Case: Your not there");
