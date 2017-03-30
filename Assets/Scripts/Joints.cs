@@ -6,20 +6,17 @@ using Windows.Kinect;
 
 public class Joints : MonoBehaviour {
 
-    public GameObject BodySrcManager;
-    public JointType TrackedLeft;
-    public JointType TrackedRight;
-    public JointType TrackedMiddle;
-    public JointType TrackedTop;
-    public JointType TrackedBottom;
+    GameObject BodySrcManager;
     private BodySourceManager bodyManager;
     private Body[] bodies;
-    public int multiplier;
+    float multiplier;
+    float multiplier2;
     //public InteractionHandEventType HandEventType;
 
 
     // Use this for initialization
     void Start () {
+        BodySrcManager = GameObject.Find("BodySourceManager");
         if (BodySrcManager == null)
         {
             Debug.Log("Assign Game Object with Body Source Manager");
@@ -50,14 +47,20 @@ public class Joints : MonoBehaviour {
             }
             if (body.IsTracked)
             {
-                var posLeft = body.Joints[TrackedLeft].Position;
-                var posRight = body.Joints[TrackedRight].Position;
-                var posMid = body.Joints[TrackedMiddle].Position;
-                var posBot = body.Joints[TrackedBottom].Position;
-                var posTop = body.Joints[TrackedTop].Position;
-                var mult = System.Math.Abs(posMid.X - 5)* 10;
-                gameObject.transform.position = new Vector3((posMid.X * mult) + 15, (posMid.Y * mult) - 15,90F);
-                gameObject.transform.localScale = new Vector3(multiplier, multiplier, 50F);
+                var posLeft = body.Joints[JointType.ShoulderLeft].Position;
+                var posRight = body.Joints[JointType.ShoulderRight].Position;
+                var posMid = body.Joints[JointType.SpineMid].Position;
+                var posBot = body.Joints[JointType.SpineBase].Position;
+                var posTop = body.Joints[JointType.SpineBase].Position;
+                var mult = System.Math.Abs(posMid.X - 5) * 10;
+                gameObject.transform.position = new Vector3((posMid.X * mult), (posMid.Y * mult), 80F);
+                Debug.Log("PosLeft :" + posLeft.X + " posRight: " + posRight.X);
+                multiplier = (System.Math.Abs(posLeft.X - posRight.X) * 400);
+             //   multiplier2 = gameObject.transform.position.X
+
+             //   gameObject.transform.position.X
+                Debug.Log("mutliplier: " + multiplier);
+                gameObject.transform.localScale = new Vector3(multiplier, multiplier, multiplier);
             }
         }
 		

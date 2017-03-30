@@ -78,8 +78,6 @@ public class SuitPanel : MonoBehaviour
 
             }
 
-            //Debug.Log("Cursur: " + curser.transform.position.x + " : " + curser.transform.position.y);
-
             if (curser.transform.position.x < 992 && curser.transform.position.x > 740 && pressed == true)
             {
                 pressingObject.GetComponent<Pressing>().handpressed = false;
@@ -91,12 +89,12 @@ public class SuitPanel : MonoBehaviour
                         Destroy(spawn);
                         spawn = null;
                         spawn = (GameObject)Instantiate(suits[suitsActive]); //cloning
+                        spawn.AddComponent<Joints>();
                         firstSuit = true;
                         secondSuit = false;
                         thirdSuit = false;
                         spawn.transform.position = new Vector3(0, 20.4f, 92.9f);
-                        // Debug.Log("Clothing " + putOnUser.transform.position.x + " : " + putOnUser.transform.position.y);
-                        //Debug.Log("1: ");
+
                     }
 
                 }
@@ -107,13 +105,11 @@ public class SuitPanel : MonoBehaviour
                         Destroy(spawn);
                         spawn = null;
                         spawn = (GameObject)Instantiate(suits[suitsActive + 1]);
-                        //putOnUser = spawn;
-                        //putputOnUser.transform.position = suits[suitsActive].transform.position;
+                        spawn.AddComponent<Joints>();
                         firstSuit = false;
                         secondSuit = true;
                         thirdSuit = false;
                         spawn.transform.position = new Vector3(0, 20.4f, 92.9f);
-                        // Debug.Log("Clothing " + putOnUser.transform.position.x + " : " + putOnUser.transform.position.y);
                         Debug.Log("2: ");
                     }
 
@@ -125,6 +121,7 @@ public class SuitPanel : MonoBehaviour
                         Destroy(spawn);
                         spawn = null;
                         spawn = (GameObject)Instantiate(suits[suitsActive + 2]);
+                        spawn.AddComponent<Joints>();
                         firstSuit = false;
                         secondSuit = false;
                         thirdSuit = true;

@@ -79,12 +79,11 @@ public class PantsPanel : MonoBehaviour
                     Destroy(spawn);
                     spawn = null;
                     spawn = (GameObject)Instantiate(pants[pantsActive]); //cloning
+                    spawn.AddComponent<Joints>();
                     firstPant = true;
                     secondPant = false;
                     thirdPant = false;
                     spawn.transform.position = new Vector3(0, 20.4f, 92.9f);
-                    // Debug.Log("Clothing " + putOnUser.transform.position.x + " : " + putOnUser.transform.position.y);
-                    //Debug.Log("1: ");
                 }
 
             }
@@ -95,13 +94,11 @@ public class PantsPanel : MonoBehaviour
                     Destroy(spawn);
                     spawn = null;
                     spawn = (GameObject)Instantiate(pants[pantsActive + 1]);
-                    //putOnUser = spawn;
-                    //putputOnUser.transform.position = pants[pantsActive].transform.position;
+                    spawn.AddComponent<Joints>();
                     firstPant = false;
                     secondPant = true;
                     thirdPant = false;
                     spawn.transform.position = new Vector3(0, 20.4f, 92.9f);
-                    // Debug.Log("Clothing " + putOnUser.transform.position.x + " : " + putOnUser.transform.position.y);
                     Debug.Log("2: ");
                 }
 
@@ -113,6 +110,7 @@ public class PantsPanel : MonoBehaviour
                     Destroy(spawn);
                     spawn = null;
                     spawn = (GameObject)Instantiate(pants[pantsActive + 2]);
+                    spawn.AddComponent<Joints>();
                     firstPant = false;
                     secondPant = false;
                     thirdPant = true;

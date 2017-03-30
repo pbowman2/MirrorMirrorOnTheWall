@@ -93,6 +93,7 @@ public class ShirtPanel : MonoBehaviour
                     Destroy(spawn);
                     spawn = null;
                     spawn = (GameObject)Instantiate(shirts[shirtsActive]); //cloning
+                    spawn.AddComponent<Joints>();
                     firstShirt = true;
                     secondShirt = false;
                     thirdShirt = false;
@@ -109,13 +110,11 @@ public class ShirtPanel : MonoBehaviour
                     Destroy(spawn);
                     spawn = null;
                     spawn = (GameObject)Instantiate(shirts[shirtsActive + 1]);
-                    //putOnUser = spawn;
-                    //putputOnUser.transform.position = shirts[shirtsActive].transform.position;
+                    spawn.AddComponent<Joints>();
                     firstShirt = false; 
                     secondShirt = true;
                     thirdShirt = false;
                     spawn.transform.position = new Vector3(0, 20.4f, 92.9f);
-                    // Debug.Log("Clothing " + putOnUser.transform.position.x + " : " + putOnUser.transform.position.y);
                     Debug.Log("2: ");
                 }
 
@@ -127,6 +126,7 @@ public class ShirtPanel : MonoBehaviour
                     Destroy(spawn);
                     spawn = null;
                     spawn = (GameObject)Instantiate(shirts[shirtsActive+2]);
+                    spawn.AddComponent<Joints>();
                     firstShirt = false;
                     secondShirt = false;
                     thirdShirt = true;

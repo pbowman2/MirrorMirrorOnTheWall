@@ -20,7 +20,7 @@ public class SpeechRecog : MonoBehaviour
     public AudioClip audioSound;
     // keyword array
     public string[] Keywords_array;
-   // KinectInputData kinect;
+    // KinectInputData kinect;
     //KinectInputModule kinect;
     SkeletonBone kinect;
     Windows.Kinect.KinectSensor kn;
@@ -33,14 +33,25 @@ public class SpeechRecog : MonoBehaviour
     public int picturesTaken = 0;
     GameObject canvas;
     GameObject cover;
+    public GameObject kinecting;
+    GameObject shirtsB;
+    GameObject suitsB;
+    GameObject pantsB;
+    GameObject backgroundB;
 
 
     // Use this for initialization
     void Start()
     {
+        canvas = GameObject.Find("Canvas");
+        shirtsB = GameObject.Find("bShirts");
+        suitsB = GameObject.Find("bSuits");
+        pantsB = GameObject.Find("bPants");
+        backgroundB = GameObject.Find("bBackground");
+
         // Change size of array for your requirement
         Keywords_array = new string[4];
-        Keywords_array[0] = "hello";
+        Keywords_array[0] = "wall";
         Keywords_array[1] = "take a picture";
         Keywords_array[2] = "change background";
         Keywords_array[3] = "reset";
@@ -55,12 +66,12 @@ public class SpeechRecog : MonoBehaviour
 
     void OnKeywordsRecognized(PhraseRecognizedEventArgs args)
     {
-        
+
 
         switch (args.text)
         {
-            case "hello":
-                Debug.Log("Case: HELLLO");
+            case "wall":
+                Debug.Log("Case: Wall");
                 //check to see if there is a body in front of the Kinect.
                 bodyManager = BodySrcManager.GetComponent<BodySourceManager>();
                 bodies = bodyManager.GetData();
@@ -71,11 +82,15 @@ public class SpeechRecog : MonoBehaviour
                         bodyThere = true;
                 }
                 if (bodyThere)
-                { 
+                {
                     AudioSource audio = GetComponent<AudioSource>();
                     audio.Play();
-                    //cover.SetActive(false);
-                    cover.GetComponent<MeshRenderer>().enabled = false;
+                    cover.SetActive(false);
+                    shirtsB.SetActive(true);
+                    suitsB.SetActive(true);
+                    pantsB.SetActive(true);
+                    backgroundB.SetActive(true);
+                    kinecting.GetComponent<BodySourceView>().active = true;
                 }
                 else
                     Debug.Log("Case: Your not there");
@@ -84,26 +99,18 @@ public class SpeechRecog : MonoBehaviour
 
             case "take a picture":
                 // Take picture code here          
-                canvas = GameObject.Find("Canvas");
-                canvas.SetActive(false);
-               /* HAVENT TESTED float timers = Time.time + 0.03f;
-                while (Time.time != timers)
-                {
-                    Debug.Log("Time: " + timers);
-                }*/
-           /*     _inputData.WaitOverAmount = (Time.time - _inputData.HoverTime) / _waitOverTime;
-                if (Time.time >= _inputData.HoverTime + _waitOverTime)
-                {
-                    PointerEventData lookData = GetLookPointerEventData(_inputData.GetHandScreenPosition());
-                    GameObject go = lookData.pointerCurrentRaycast.gameObject;
-                    ExecuteEvents.ExecuteHierarchy(go, lookData, ExecuteEvents.submitHandler);
-                    // reset time
-                    _inputData.HoverTime = Time.time;
-                }*/
+                shirtsB.SetActive(false);
+                suitsB.SetActive(false);
+                pantsB.SetActive(false);
+                //backgroundB.SetActive(false);
                 Application.CaptureScreenshot("Screenshot" + picturesTaken + ".png");
                 picturesTaken++;
                 Debug.Log("Case: Take a Picture");
-                canvas.SetActive(true);
+                shirtsB.SetActive(true);
+                suitsB.SetActive(true);
+                pantsB.SetActive(true);
+                backgroundB.SetActive(true);
+                kinecting.GetComponent<BodySourceView>().active = true;
                 break;
 
             case "change background":
@@ -112,7 +119,7 @@ public class SpeechRecog : MonoBehaviour
                 Texture2D incommingImage = backgroundPan[iterator];
                 Debug.Log("Iterator: " + iterator);
                 Debug.Log("Background: " + incommingImage.name);
-                if (iterator + 1== backgroundPan.Length)
+                if (iterator + 1 == backgroundPan.Length)
                 {
                     iterator = 0;
                 }
@@ -136,5 +143,9 @@ public class SpeechRecog : MonoBehaviour
                 break;
         }
 
+    }
+    void CanvasCall()
+    {
+        canvas.SetActive(true);
     }
 }

@@ -4,127 +4,148 @@ using System.Collections.Generic;
 using Kinect = Windows.Kinect;
 using UnityEngine.SceneManagement;
 
-public class BodySourceView : MonoBehaviour 
+public class BodySourceView : MonoBehaviour
 {
     public Material BoneMaterial;
     public GameObject BodySourceManager;
     bool drawKey = false; // draw the skeleton boxes
     public GameObject cover;
+    public GameObject canvas;
+    GameObject shirtsB;
+    GameObject suitsB;
+    GameObject pantsB;
+    GameObject backgroundB;
+    public bool active = false;
 
     private Dictionary<ulong, GameObject> _Bodies = new Dictionary<ulong, GameObject>();
     private BodySourceManager _BodyManager;
-    
+
     private Dictionary<Kinect.JointType, Kinect.JointType> _BoneMap = new Dictionary<Kinect.JointType, Kinect.JointType>()
     {
         { Kinect.JointType.FootLeft, Kinect.JointType.AnkleLeft },
         { Kinect.JointType.AnkleLeft, Kinect.JointType.KneeLeft },
         { Kinect.JointType.KneeLeft, Kinect.JointType.HipLeft },
         { Kinect.JointType.HipLeft, Kinect.JointType.SpineBase },
-        
+
         { Kinect.JointType.FootRight, Kinect.JointType.AnkleRight },
         { Kinect.JointType.AnkleRight, Kinect.JointType.KneeRight },
         { Kinect.JointType.KneeRight, Kinect.JointType.HipRight },
         { Kinect.JointType.HipRight, Kinect.JointType.SpineBase },
-        
+
         { Kinect.JointType.HandTipLeft, Kinect.JointType.HandLeft },
         { Kinect.JointType.ThumbLeft, Kinect.JointType.HandLeft },
         { Kinect.JointType.HandLeft, Kinect.JointType.WristLeft },
         { Kinect.JointType.WristLeft, Kinect.JointType.ElbowLeft },
         { Kinect.JointType.ElbowLeft, Kinect.JointType.ShoulderLeft },
         { Kinect.JointType.ShoulderLeft, Kinect.JointType.SpineShoulder },
-        
+
         { Kinect.JointType.HandTipRight, Kinect.JointType.HandRight },
         { Kinect.JointType.ThumbRight, Kinect.JointType.HandRight },
         { Kinect.JointType.HandRight, Kinect.JointType.WristRight },
         { Kinect.JointType.WristRight, Kinect.JointType.ElbowRight },
         { Kinect.JointType.ElbowRight, Kinect.JointType.ShoulderRight },
         { Kinect.JointType.ShoulderRight, Kinect.JointType.SpineShoulder },
-        
+
         { Kinect.JointType.SpineBase, Kinect.JointType.SpineMid },
         { Kinect.JointType.SpineMid, Kinect.JointType.SpineShoulder },
         { Kinect.JointType.SpineShoulder, Kinect.JointType.Neck },
         { Kinect.JointType.Neck, Kinect.JointType.Head },
     };
-    
-    void Update () 
+    void Start()
+    {
+        cover = GameObject.Find("ScreenCover");
+        shirtsB = GameObject.Find("bShirts");
+        suitsB = GameObject.Find("bSuits");
+        pantsB = GameObject.Find("bPants");
+        backgroundB = GameObject.Find("bBackground");
+    }
+    void Update()
     {
         if (Input.GetKeyDown("s") && drawKey == false)
             drawKey = true;
         else if (Input.GetKeyDown("s") && drawKey == true)
             drawKey = false;
 
-            if (BodySourceManager == null)
+        if (BodySourceManager == null)
         {
             return;
         }
-        
+
         _BodyManager = BodySourceManager.GetComponent<BodySourceManager>();
         if (_BodyManager == null)
         {
             return;
         }
-        
+
         Kinect.Body[] data = _BodyManager.GetData();
         if (data == null)
         {
             return;
         }
-        
+
         List<ulong> trackedIds = new List<ulong>();
-        foreach(var body in data)
+        foreach (var body in data)
         {
             if (body == null)
             {
                 continue;
-              }
-                
-            if(body.IsTracked)
+            }
+
+            if (body.IsTracked)
             {
-                trackedIds.Add (body.TrackingId);
+                trackedIds.Add(body.TrackingId);
             }
         }
-        
+
         List<ulong> knownIds = new List<ulong>(_Bodies.Keys);
-        
+
         // First delete untracked bodies
-        foreach(ulong trackingId in knownIds)
+        foreach (ulong trackingId in knownIds)
         {
-            if(!trackedIds.Contains(trackingId))
+            if (!trackedIds.Contains(trackingId))
             {
                 Destroy(_Bodies[trackingId]);
                 _Bodies.Remove(trackingId);
             }
         }
-
-        foreach(var body in data)
+        bool trackeddBody = true;
+        foreach (var body in data)
         {
             if (body == null)
             {
                 continue;
             }
-            
-            if(body.IsTracked)
+
+            if (body.IsTracked)
             {
-                if(!_Bodies.ContainsKey(body.TrackingId))
+                trackeddBody = false;
+
+                if (!_Bodies.ContainsKey(body.TrackingId))
                 {
-                   _Bodies[body.TrackingId] = CreateBodyObject(body.TrackingId);
+                    _Bodies[body.TrackingId] = CreateBodyObject(body.TrackingId);
                 }
-                
-                //RefreshBodyObject(body, _Bodies[body.TrackingId]);
+
+                RefreshBodyObject(body, _Bodies[body.TrackingId]);
 
                 //Tracking for UI Component  
                 KinectInputModule.instance.TrackBody(body);
             }
-            else
-            {
-                if (cover == null)
-                    cover = GameObject.Find("ScreenCover");
 
-                cover.SetActive(true);
-            }
+        }
+
+        if (trackeddBody == true && active == true)
+        {
+            trackeddBody = false;
+            active = false;
+           // SceneManager.LoadScene("Test3");
+        }
+        else if (trackeddBody == true)
+        {
+            trackeddBody = false;
+
         }
     }
-    
+
     private GameObject CreateBodyObject(ulong id)
     {
         GameObject body = new GameObject("Body:" + id);
@@ -141,29 +162,29 @@ public class BodySourceView : MonoBehaviour
             jointObj.name = jt.ToString();
             jointObj.transform.parent = body.transform;
         }
-        
+
         return body;
     }
-    
+
     private void RefreshBodyObject(Kinect.Body body, GameObject bodyObject)
     {
         for (Kinect.JointType jt = Kinect.JointType.SpineBase; jt <= Kinect.JointType.ThumbRight; jt++)
         {
             Kinect.Joint sourceJoint = body.Joints[jt];
             Kinect.Joint? targetJoint = null;
-            
-            if(_BoneMap.ContainsKey(jt))
+
+            if (_BoneMap.ContainsKey(jt))
             {
                 targetJoint = body.Joints[_BoneMap[jt]];
             }
-            
+
             Transform jointObj = bodyObject.transform.FindChild(jt.ToString());
 
             jointObj.localPosition = GetVector3FromJoint(sourceJoint);
 
-            
+
             LineRenderer lr = jointObj.GetComponent<LineRenderer>();
-            if(targetJoint.HasValue)
+            if (targetJoint.HasValue)
             {
                 //lr.SetPosition(0, jointObj.localPosition);
                 //lr.SetPosition(1, GetVector3FromJoint(targetJoint.Value));
@@ -175,22 +196,22 @@ public class BodySourceView : MonoBehaviour
             }
         }
     }
-    
+
     private static Color GetColorForState(Kinect.TrackingState state)
     {
         switch (state)
         {
-        case Kinect.TrackingState.Tracked:
-            return Color.green;
+            case Kinect.TrackingState.Tracked:
+                return Color.green;
 
-        case Kinect.TrackingState.Inferred:
-            return Color.red;
+            case Kinect.TrackingState.Inferred:
+                return Color.red;
 
-        default:
-            return Color.black;
+            default:
+                return Color.black;
         }
     }
-    
+
     private static Vector3 GetVector3FromJoint(Kinect.Joint joint)
     {
         return new Vector3(joint.Position.X * 10, joint.Position.Y * 10, joint.Position.Z * 10);
