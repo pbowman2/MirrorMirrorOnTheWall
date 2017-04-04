@@ -53,11 +53,14 @@ public class Joints : MonoBehaviour {
                 var posBot = body.Joints[JointType.SpineBase].Position;
                 var posTop = body.Joints[JointType.SpineBase].Position;
                 var mult = System.Math.Abs(posMid.X - 5) * 10;
-                gameObject.transform.position = new Vector3((posMid.X * mult), (posMid.Y * mult), 80F);
+                gameObject.transform.position = new Vector3((posMid.X * mult)+5, (posMid.Y * mult), 80F);
                 Debug.Log("PosLeft :" + posLeft.X + " posRight: " + posRight.X);
-                multiplier = (System.Math.Abs(posLeft.X - posRight.X) * 400);
-             //   multiplier2 = gameObject.transform.position.X
-
+                //multiplier = (System.Math.Abs(posLeft.X - posRight.X) * 400);
+                //   multiplier2 = gameObject.transform.position.X
+                var xSqaure = (double)System.Math.Pow(posLeft.X - posRight.X, 2);
+                var ySqaure = (double)System.Math.Pow(posLeft.Y - posRight.Y, 2);
+                var zSqaure = (double)System.Math.Pow(posLeft.Z - posRight.Z, 2);
+                multiplier = (float)System.Math.Sqrt((xSqaure + ySqaure + zSqaure)) * 300;
              //   gameObject.transform.position.X
                 Debug.Log("mutliplier: " + multiplier);
                 gameObject.transform.localScale = new Vector3(multiplier, multiplier, multiplier);
