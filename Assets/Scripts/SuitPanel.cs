@@ -89,7 +89,7 @@ public class SuitPanel : MonoBehaviour
                         Destroy(spawn);
                         spawn = null;
                         spawn = (GameObject)Instantiate(suits[suitsActive]); //cloning
-                        spawn.AddComponent<Joints>();
+                        spawn.AddComponent<SuitJoints>();
                         firstSuit = true;
                         secondSuit = false;
                         thirdSuit = false;
@@ -105,7 +105,7 @@ public class SuitPanel : MonoBehaviour
                         Destroy(spawn);
                         spawn = null;
                         spawn = (GameObject)Instantiate(suits[suitsActive + 1]);
-                        spawn.AddComponent<Joints>();
+                        spawn.AddComponent<SuitJoints>();
                         firstSuit = false;
                         secondSuit = true;
                         thirdSuit = false;
@@ -121,7 +121,7 @@ public class SuitPanel : MonoBehaviour
                         Destroy(spawn);
                         spawn = null;
                         spawn = (GameObject)Instantiate(suits[suitsActive + 2]);
-                        spawn.AddComponent<Joints>();
+                        spawn.AddComponent<SuitJoints>();
                         firstSuit = false;
                         secondSuit = false;
                         thirdSuit = true;
