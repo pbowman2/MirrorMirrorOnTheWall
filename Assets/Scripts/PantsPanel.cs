@@ -79,7 +79,7 @@ public class PantsPanel : MonoBehaviour
                     Destroy(spawn);
                     spawn = null;
                     spawn = (GameObject)Instantiate(pants[pantsActive]); //cloning
-                    spawn.AddComponent<Joints>();
+                    spawn.AddComponent<PantsJoints>();
                     firstPant = true;
                     secondPant = false;
                     thirdPant = false;
@@ -94,7 +94,7 @@ public class PantsPanel : MonoBehaviour
                     Destroy(spawn);
                     spawn = null;
                     spawn = (GameObject)Instantiate(pants[pantsActive + 1]);
-                    spawn.AddComponent<Joints>();
+                    spawn.AddComponent<PantsJoints>();
                     firstPant = false;
                     secondPant = true;
                     thirdPant = false;
@@ -110,7 +110,7 @@ public class PantsPanel : MonoBehaviour
                     Destroy(spawn);
                     spawn = null;
                     spawn = (GameObject)Instantiate(pants[pantsActive + 2]);
-                    spawn.AddComponent<Joints>();
+                    spawn.AddComponent<PantsJoints>();
                     firstPant = false;
                     secondPant = false;
                     thirdPant = true;
